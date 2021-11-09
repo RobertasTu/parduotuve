@@ -43,6 +43,11 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $category = new Category;
+        $validateVar = $request->validate ([
+            'category_title' => 'required|unique:categories,title|min:6|max:200|regex:/^[a-zA-Z]+$/u',
+            'category_description' => 'required|min:6|max:1500|regex:/^[a-zA-Z]+$/u',
+            'category_shop_id' => 'required|numeric'
+        ]);
         $category->title=$request->category_title;
         $category->description=$request->category_description;
         $category->shop_id=$request->category_shop_id;
@@ -85,6 +90,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        $validateVar = $request->validate ([
+            'category_title' => 'required|unique:categories,title|min:6|max:200|regex:/^[a-zA-Z]+$/u',
+            'category_description' => 'required|min:6|max:1500|regex:/^[a-zA-Z]+$/u',
+            'category_shop_id' => 'required|numeric'
+        ]);
         $category->title=$request->category_title;
         $category->description=$request->category_description;
         $category->shop_id=$request->category_shop_id;

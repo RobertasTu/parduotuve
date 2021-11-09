@@ -39,6 +39,13 @@ class ShopController extends Controller
     public function store(Request $request)
     {
         $shop = new Shop;
+        $validateVar = $request->validate ([
+            'shop_title' => 'required|min:6|max:200|regex:/^[a-zA-Z]+$/u',
+            'shop_description' => 'required|min:6|max:1500|regex:/^[a-zA-Z]+$/u',
+            'shop_email' => 'required|regex:/(.+)@(.+)\.(.+)/i|unique:shops,email',
+            'shop_phone' => 'required|d|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:12',
+            'shop_country' => 'required|regex:/^[a-zA-Z]+$/u',
+        ]);
         $shop->title = $request->shop_title;
         $shop->description = $request->shop_description;
         $shop->email = $request->shop_email;
@@ -81,6 +88,13 @@ class ShopController extends Controller
      */
     public function update(Request $request, Shop $shop)
     {
+        $validateVar = $request->validate ([
+            'shop_title' => 'required|min:6|max:200|regex:/^[a-zA-Z]+$/u',
+            'shop_description' => 'required|min:6|max:1500|regex:/^[a-zA-Z]+$/u',
+            'shop_email' => 'required|regex:/(.+)@(.+)\.(.+)/i|unique:shops,email',
+            'shop_phone' => 'required|d|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:12',
+            'shop_country' => 'required|regex:/^[a-zA-Z]+$/u',
+        ]);
         $shop->title = $request->shop_title;
         $shop->description = $request->shop_description;
         $shop->email = $request->shop_email;

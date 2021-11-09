@@ -9,8 +9,19 @@
         <div class="form-group row">
             <label for="filterPrice" class="col-md-4 col-form-label text-md-right">{{ __('Filter by price:') }}</label>
             <div class='col-md-6'>
-                Min price <input class='form-control' type='text' name='min_price' >
-                Max price  <input class='form-control' type="text" name="max_price">
+                Min price <input class='form-control @error('min_price') is-invalid @enderror' type='text' name='min_price' value='{{ old('min_price') }}' >
+                @error('min_price')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+                Max price  <input class='form-control @error('max_price') is-invalid @enderror' type="text" name="max_price" value='{{ old('max_price') }}'>
+                @error('max_price')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+
             </div>
                 <label for="filterByCategory" class="col-md-4 col-form-label text-md-right">{{ __('Filter by category:') }}</label>
                 <div class='col-md-6'>

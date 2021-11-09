@@ -23,6 +23,11 @@ class ProductController extends Controller
 
         $filterByCategory = $request->filterByCategory;
 
+        $validateVar = $request->validate ([
+            'min_price' => 'numeric|gte:0',
+            'max_price' => 'numeric|gt:min_price',
+        ]);
+
         $min_price = $request->min_price;
         $max_price = $request->max_price;
 
@@ -79,6 +84,15 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $product = new Product;
+        $validateVar = $request->validate ([
+            'product_title' => 'required|min:6|max:200|regex:/^[a-zA-Z]+$/u',
+            'product_excerpt' => 'required|min:6|max:400|regex:/^[a-zA-Z]+$/u',
+            'product_description' => 'required|min:6|max:1500|regex:/^[a-zA-Z]+$/u',
+            'product_price' => 'required|numeric|gte:0',
+            'product_image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
+            'product_category_id' => 'required|numeric'
+
+          ]);
         $product->title=$request->product_title;
         $product->excerpt=$request->product_excerpt;
         $product->description=$request->product_description;
@@ -130,6 +144,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $validateVar = $request->validate ([
+            'product_title' => 'required|min:6|max:200|regex:/^[a-zA-Z]+$/u',
+            'product_excerpt' => 'required|min:6|max:400|regex:/^[a-zA-Z]+$/u',
+            'product_description' => 'required|min:6|max:1500|regex:/^[a-zA-Z]+$/u',
+            'product_price' => 'required|numeric|gte:0',
+            'product_image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
+            'product_category_id' => 'required|numeric'
+
+          ]);
         $product->title=$request->product_title;
         $product->excerpt=$request->product_excerpt;
         $product->description=$request->product_description;
